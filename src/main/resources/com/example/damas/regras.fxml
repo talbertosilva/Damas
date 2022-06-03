@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../java/com/example/damas/assets/CSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.damas.Regras">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#262626" height="27.0" layoutY="373.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+        <Text fill="WHITE" layoutX="92.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRIADO POR: TIAGO SILVA, BERNARDO AZEVEDO E GASPAR ESPINHEIRA">
+            <font>
+                <Font name="Nirmala UI Bold" size="12.0" />
+            </font></Text>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#262626" height="39.0" layoutX="185.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="217.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#262626" height="232.0" layoutX="185.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="217.0" />
+        <Button layoutX="219.0" layoutY="323.0" mnemonicParsing="false" onAction="#btn_voltar" prefHeight="38.0" prefWidth="154.0" stylesheets="@../../../../java/com/example/damas/assets/CSS.css" text="VOLTAR" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Nirmala UI Bold" size="12.0" />
+            </font>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+            </padding>
+        </Button>
+        <Text fill="WHITE" layoutX="253.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGRAS">
+            <font>
+                <Font name="Nirmala UI Bold" size="20.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="199.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O jogo de damas joga-se entre&#10;2 jogadores sobre um tabuleiro &#10;(idêntico ou muito semelhante ao &#10;de xadrez) de 8x8 casas de cores &#10;alternantes. &#10;&#10;No início da partida cada jogador &#10;começa com 12 peças distribuídas &#10;como indica na seguinte imagem. &#10;Estas peças são denominadas &#10;como peões.&#10;">
+            <font>
+                <Font name="Nirmala UI Bold" size="12.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>
