@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.damas.Menu">
    <children>
-      <Button layoutX="228.0" layoutY="131.0" mnemonicParsing="false" text="JOGAR">
+      <Button layoutX="228.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#menuJogar" text="JOGAR">
          <padding>
             <Insets bottom="10.0" left="53.0" right="53.0" top="10.0" />
          </padding></Button>

@@ -86,8 +86,8 @@
                            </font>
                         </Text>
                         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" text="CRIAR" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="127.0.0.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3000" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Text fx:id="txt_ip" strokeType="OUTSIDE" strokeWidth="0.0" text="127.0.0.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Text fx:id="txt_porta" strokeType="OUTSIDE" strokeWidth="0.0" text="3000" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
