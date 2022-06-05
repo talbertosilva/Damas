@@ -1,5 +1,8 @@
 package com.example.damas;
 
+import com.example.damas.conexao.Client;
+import com.example.damas.conexao.Server;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -13,6 +16,8 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ResourceBundle;
 
+import static java.lang.Integer.parseInt;
+
 public class Interface implements Initializable {
 
     // Layout
@@ -22,6 +27,9 @@ public class Interface implements Initializable {
     Label estadoConexao;
     @FXML
     TextField input_ip, input_porta;
+
+    private Server servidor;
+    private Client cliente;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,30 +44,30 @@ public class Interface implements Initializable {
 
     public void criarJogo(MouseEvent mouseEvent) {
         int porta = 6666;
-        try {
-            ServerSocket ss = new ServerSocket(porta);
-            Socket s = ss.accept();
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            String str = (String)dis.readUTF();
-            estadoConexao.setText(str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        servidor = new Server(porta);
+        new Thread(() -> {
+            boolean state = servidor.conectar();
+            if(state){
+                Platform.runLater(() -> {
+                    estadoConexao.setText("Adversário conectado");
+                });
+            }
+        }).start();
     }
 
     public void entrarJogo(MouseEvent mouseEvent) {
         String ip = this.input_ip.getText();
         String porta = this.input_porta.getText();
 
-        try {
-            Socket s = new Socket(ip, Integer.parseInt(porta));
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-            dout.writeUTF("Conectado com sucesso!");
-            estadoConexao.setText("Conectado com sucesso!");
-            dout.flush();
-            dout.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        cliente = new Client(ip, parseInt(porta));
+
+        new Thread(() -> {
+            boolean state = cliente.conectar();
+            if(state){
+                Platform.runLater(() -> {
+                    estadoConexao.setText("Conectado a " + ip + ":" + porta);
+                });
+            }
+        }).start();
     }
 }
