@@ -49,7 +49,7 @@
                         </Text>
                         <TextField fx:id="input_ip" prefWidth="274.0" promptText="ENDEREÇO IP" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <TextField fx:id="input_porta" layoutX="10.0" layoutY="18.0" promptText="PORTA" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" onMouseClicked="#entrarJogo" prefHeight="30.0" prefWidth="105.0" stylesheets="@../../../../java/com/example/damas/assets/CSS.css" text="ENTRAR" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button mnemonicParsing="false" onMouseClicked="#entrarJogo" prefHeight="30.0" prefWidth="105.0" stylesheets="@assets/CSS.css" text="ENTRAR" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Nirmala UI Bold" size="12.0" />
                            </font></Button>
@@ -88,7 +88,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" onMouseClicked="#criarJogo" prefHeight="30.0" prefWidth="105.0" stylesheets="@../../../../java/com/example/damas/assets/CSS.css" text="CRIAR" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button mnemonicParsing="false" onMouseClicked="#criarJogo" prefHeight="30.0" prefWidth="105.0" stylesheets="@assets/CSS.css" text="CRIAR" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Nirmala UI Bold" size="12.0" />
                            </font></Button>
