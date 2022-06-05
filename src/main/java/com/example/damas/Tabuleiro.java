@@ -49,4 +49,31 @@ public class Tabuleiro
     {
         tabuleiro[linha][coluna] = peça;
     }
+
+    void moverPeça(MovimentoPeça mover)
+    {
+        moverPeça(mover.deLinha, mover.deColuna, mover.paraLinha, mover.paraColuna);
+    }
+
+    private void moverPeça(int deLinha, int deColuna, int paraLinha, int paraColuna)
+    {
+        // Make the move from (fromRow,fromCol) to (toRow,toCol).  It is
+        // assumed that this move is legal.  If the move is a jump, the
+        // jumped piece is removed from the board.  If a piece moves
+        // the last row on the opponent's side of the board, the
+        // piece becomes a king.
+        tabuleiro[deLinha][deColuna] = tabuleiro[paraLinha][paraColuna];
+        tabuleiro[deLinha][deColuna] = VAZIO;
+        if (deLinha - paraLinha == 2 || deLinha - paraLinha == -2)
+        {
+            // The move is a jump.  Remove the jumped piece from the board.
+            int moverLinha = (deLinha + paraLinha) / 2;  // Row of the jumped piece.
+            int moverColuna = (deColuna + paraColuna) / 2;  // Column of the jumped piece.
+            tabuleiro[moverLinha][moverColuna] = VAZIO;
+        }
+        if (paraLinha == 0 && tabuleiro[paraLinha][paraColuna] == BRANCA)
+            tabuleiro[paraLinha][paraLinha] = BRANCA_RAINHA;
+        if (paraLinha == 7 && tabuleiro[paraLinha][paraColuna] == PRETA)
+            tabuleiro[paraLinha][paraColuna] = PRETA_RAINHA;
+    }
 }

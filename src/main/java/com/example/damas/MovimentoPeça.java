@@ -17,7 +17,7 @@ public class MovimentoPeça
         paraColuna = c2;
     }
 
-    boolean isJump() {
+    boolean comerPeça() {
         // Main whether this move is a jump.  It is assumed that
         // the move is legal.  In a jump, the piece moves two
         // rows.  (In a regular move, it only moves one row.)
