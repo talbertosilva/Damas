@@ -175,6 +175,107 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
         desenhaTabuleiro();
     }
 
+    public void clickQuadrado(int linha, int coluna)
+    {
+        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+            return;
+        for(MovimentoPeça movimentoPeça : movimentoPeças)
+            if (movimentoPeça.deLinha == linha && movimentoPeça.deColuna == coluna)
+            {
+                linhaSelecionada = linha;
+                colunaSelecionada = coluna;
+                if(jogador2 == Tabuleiro.BRANCA)
+                    mensagem.setText("Jogador 1: JOGA!");
+                else
+                    mensagem.setText("Jogador 2: JOGA!");
+                return;
+            }
+
+        if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+            return;
+        if (linhaSelecionada < 0)
+        {
+            mensagem.setText("Carrega na peça que queres mover");
+            return;
+        }
+
+        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+            return;
+        for (MovimentoPeça movimentoPeça : movimentoPeças)
+            if (movimentoPeça.deLinha == linhaSelecionada && movimentoPeça.deColuna == colunaSelecionada
+                    && movimentoPeça.paraLinha == linha && movimentoPeça.paraColuna == coluna)
+            {
+                realizarMovimento(movimentoPeça);
+                return;
+            }
+
+        mensagem.setText("Clica no quadrado que desejas que a peça se mova");
+    }
+
+    private void clickQuadrado(String x, String y)
+    {
+        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+            return;
+        clickQuadrado(Integer.parseInt(x), Integer.parseInt(y));
+    }
+
+    private void realizarMovimento(MovimentoPeça movimentoPeça) {
+        tabuleiro.moverPeça(movimentoPeça);
+
+        if (movimentoPeça.comerPeça()) {
+            movimentoPeças = tabuleiro.verificaCaptura(jogador2, movimentoPeça.paraLinha, movimentoPeça.paraColuna);
+            if (movimentoPeças != null) {
+                if (jogador2 == Tabuleiro.BRANCA)
+                    mensagem.setText("Jogador 1: Tens de continuar a capturar");
+                else
+                    mensagem.setText("Jogador 2: Tens de continuar a capturar");
+                linhaSelecionada = movimentoPeça.paraLinha;
+                colunaSelecionada = movimentoPeça.paraColuna;
+                redesenharTabuleiro();
+                return;
+            }
+        }
+
+        if (jogador2 == Tabuleiro.BRANCA) {
+            jogador2 = Tabuleiro.PRETA;
+            movimentoPeças = tabuleiro.verificaMovimento(jogador2);
+            if (movimentoPeças == null)
+                gameOver("Jogador 2 sem jogadas.  Jogador 1 ganhou.");
+            else if (movimentoPeças[0].comerPeça())
+                mensagem.setText("Jogador 2:  JOGA!.  Tens de capturar");
+            else
+                mensagem.setText("Jogador 2:  JOGA!.");
+        } else {
+            jogador2 = Tabuleiro.BRANCA;
+            movimentoPeças = tabuleiro.verificaMovimento(jogador2);
+            if (movimentoPeças == null)
+                gameOver("Jogador 1 sem jogadas.  Jogador 2 ganhou.");
+            else if (movimentoPeças[0].comerPeça())
+                mensagem.setText("Jogador 1:  JOGA!.  Tens de capturar");
+            else
+                mensagem.setText("Jogador 1:  JOGA!.");
+        }
+
+        linhaSelecionada = -1;
+
+        if (movimentoPeças != null) {
+            boolean mesmoQuadrado = true;
+            for (int i = 1; i < movimentoPeças.length; i++)
+                if (movimentoPeças[i].deLinha != movimentoPeças[0].deLinha
+                        || movimentoPeças[i].deColuna != movimentoPeças[0].deColuna) {
+                    mesmoQuadrado = false;
+                    break;
+                }
+            if (mesmoQuadrado) {
+                linhaSelecionada = movimentoPeças[0].deLinha;
+                colunaSelecionada = movimentoPeças[0].deColuna;
+            }
+        }
+
+
+        redesenharTabuleiro();
+    }
+
     @Override
     public void handle(MouseEvent mouseEvent)
     {
