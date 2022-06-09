@@ -1,6 +1,7 @@
 package com.example.damas.conexao;
 
 import com.example.damas.Interface;
+import com.example.damas.Jogo;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.Socket;
 
 public class Server implements NetworkInterface {
 
+    private Jogo tabuleiro;
     Socket clientSocket;
     private ServerSocket serverSocket;
 
@@ -19,7 +21,8 @@ public class Server implements NetworkInterface {
 
     int porta;
 
-    public Server(int porta) {
+    public Server(Jogo tabuleiro, int porta) {
+        this.tabuleiro = tabuleiro;
         this.porta = porta;
     }
 
@@ -60,6 +63,30 @@ public class Server implements NetworkInterface {
         }
     }
 
+    public void lerData()
+    {
+        if (clientSocket != null) {
+            while (true) {
+                try {
+                    verificarData((String) in.readObject());
+                } catch (IOException | ClassNotFoundException e) {
+                    break;
+                }
+            }
+        }
+    }
+
+    private void verificarData(String message) throws IOException, ClassNotFoundException
+    {
+        switch (message) {
+            case "CLICK_SQUARE":
+                int row = (int) in.readObject();
+                int col = (int) in.readObject();
+                Platform.runLater(() -> tabuleiro.clickQuadrado(row, col));
+                break;
+        }
+    }
+
     public void cancelarConexao()
     {
         try {
@@ -69,5 +96,13 @@ public class Server implements NetworkInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void clickQuadrado(int row, int col) {
+        System.out.println("Linha: " + row + " Coluna: " + col);
+        enviarData("CLICK_SQUARE");
+        enviarData(row);
+        enviarData(col);
     }
 }

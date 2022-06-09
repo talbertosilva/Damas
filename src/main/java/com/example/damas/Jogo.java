@@ -1,5 +1,6 @@
 package com.example.damas;
 
+import com.example.damas.conexao.NetworkInterface;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -20,10 +21,12 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
     private Tabuleiro tabuleiro;
     private MovimentoPeça[] movimentoPeças;
 
+    private NetworkInterface netInterface;
+
     private int linhaSelecionada, colunaSelecionada;
 
-    private int jogador2; // Jogador Atual
-    private int jogador1; // Meu Jogador
+    private int jogador;
+    private int jogadorAtual;
 
     private Rectangle[][] retangulos = new Rectangle[DadosTabuleiro.TAMANHO_TABULEIRO][DadosTabuleiro.TAMANHO_TABULEIRO];
     private Circle[][] pecas = new Circle[DadosTabuleiro.TAMANHO_TABULEIRO][DadosTabuleiro.TAMANHO_TABULEIRO];
@@ -46,12 +49,12 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
         this.jogoDecorrer = jogoDecorrer;
     }
 
-    public void setJogador1(int jogador1) {
-        this.jogador1 = jogador1;
+    public void setJogador(int jogador) {
+        this.jogador = jogador;
     }
 
-    public void setJogador2(int jogador2) {
-        this.jogador2 = jogador2;
+    public void setNetworkInterface(NetworkInterface netInterface) {
+        this.netInterface = netInterface;
     }
 
     private void gameOver(String str)
@@ -70,7 +73,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             return;
         }
         tabuleiro.prepararJogo();
-        jogador2 = Tabuleiro.BRANCA;
+        jogadorAtual = Tabuleiro.BRANCA;
         movimentoPeças = tabuleiro.verificaMovimento(Tabuleiro.BRANCA);
         linhaSelecionada = -1;
         mensagem.setText("Jogador 1: Joga!");
@@ -88,7 +91,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             mensagem.setText("Não há nenhum jogo a decorrer!");
             return;
         }
-        if(jogador2 == Tabuleiro.BRANCA)
+        if(jogadorAtual == Tabuleiro.BRANCA)
             gameOver("Jogador 1 desistiu. Jogador 2 ganhou");
         else
             gameOver("Jogador 2 desistiu. Jogador 1 ganhou");
@@ -96,11 +99,11 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
 
     private void desenhaTabuleiro()
     {
-        Image pecabranca = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
-        Image pecapreta = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
-        Image pecaescolhida = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
-        Image rainhabranca = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
-        Image rainhapreta = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
+        Image pecabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
+        Image pecapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
+        Image pecaescolhida = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
+        Image rainhabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
+        Image rainhapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
 
         for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
         {
@@ -184,7 +187,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             {
                 linhaSelecionada = linha;
                 colunaSelecionada = coluna;
-                if(jogador2 == Tabuleiro.BRANCA)
+                if(jogadorAtual == Tabuleiro.BRANCA)
                     mensagem.setText("Jogador 1: JOGA!");
                 else
                     mensagem.setText("Jogador 2: JOGA!");
@@ -223,9 +226,9 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
         tabuleiro.moverPeça(movimentoPeça);
 
         if (movimentoPeça.comerPeça()) {
-            movimentoPeças = tabuleiro.verificaCaptura(jogador2, movimentoPeça.paraLinha, movimentoPeça.paraColuna);
+            movimentoPeças = tabuleiro.verificaCaptura(jogadorAtual, movimentoPeça.paraLinha, movimentoPeça.paraColuna);
             if (movimentoPeças != null) {
-                if (jogador2 == Tabuleiro.BRANCA)
+                if (jogadorAtual == Tabuleiro.BRANCA)
                     mensagem.setText("Jogador 1: Tens de continuar a capturar");
                 else
                     mensagem.setText("Jogador 2: Tens de continuar a capturar");
@@ -236,9 +239,9 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             }
         }
 
-        if (jogador2 == Tabuleiro.BRANCA) {
-            jogador2 = Tabuleiro.PRETA;
-            movimentoPeças = tabuleiro.verificaMovimento(jogador2);
+        if (jogadorAtual == Tabuleiro.BRANCA) {
+            jogadorAtual = Tabuleiro.PRETA;
+            movimentoPeças = tabuleiro.verificaMovimento(jogadorAtual);
             if (movimentoPeças == null)
                 gameOver("Jogador 2 sem jogadas.  Jogador 1 ganhou.");
             else if (movimentoPeças[0].comerPeça())
@@ -246,8 +249,8 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             else
                 mensagem.setText("Jogador 2:  JOGA!.");
         } else {
-            jogador2 = Tabuleiro.BRANCA;
-            movimentoPeças = tabuleiro.verificaMovimento(jogador2);
+            jogadorAtual = Tabuleiro.BRANCA;
+            movimentoPeças = tabuleiro.verificaMovimento(jogadorAtual);
             if (movimentoPeças == null)
                 gameOver("Jogador 1 sem jogadas.  Jogador 2 ganhou.");
             else if (movimentoPeças[0].comerPeça())
@@ -277,8 +280,30 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
     }
 
     @Override
-    public void handle(MouseEvent mouseEvent)
-    {
-
+    public void handle(MouseEvent mouseEvent){
+        Object src = mouseEvent.getSource();
+        if (src == btn_novoJogo) {
+            comecarNovoJogo();
+        } else if (src instanceof Rectangle) {
+            String[] coordinates = ((Rectangle) src).getId().split("-");
+            if (netInterface != null) {
+                if (jogador != jogadorAtual) {
+                    mensagem.setText("Essa peça não é tua");
+                    return;
+                }
+                netInterface.clickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+            }
+            clickQuadrado(coordinates[0], coordinates[1]);
+        } else if (src instanceof Circle) {
+            String[] coordinates = ((Circle) src).getId().split("-");
+            if (netInterface != null) {
+                if (jogador != jogadorAtual) {
+                    mensagem.setText("Essa peça não é tua");
+                    return;
+                }
+                netInterface.clickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+            }
+            clickQuadrado(coordinates[0], coordinates[1]);
+        }
     }
 }
