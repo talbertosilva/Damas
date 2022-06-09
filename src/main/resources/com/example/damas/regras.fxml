@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../java/com/example/damas/assets/CSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.damas.Regras">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@assets/CSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.damas.Regras">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#262626" height="27.0" layoutY="373.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
         <Text fill="WHITE" layoutX="92.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRIADO POR: TIAGO SILVA, BERNARDO AZEVEDO E GASPAR ESPINHEIRA">
