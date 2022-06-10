@@ -57,13 +57,6 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
         this.netInterface = netInterface;
     }
 
-    private void gameOver(String str)
-    {
-        mensagem.setText(str);
-        btn_novoJogo.setDisable(false);
-        btn_desistir.setDisable(true);
-        jogoDecorrer = false;
-    }
 
     public void comecarNovoJogo()
     {
@@ -97,86 +90,15 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             gameOver("Jogador 2 desistiu. Jogador 1 ganhou");
     }
 
-    private void desenhaTabuleiro()
+
+    private void gameOver(String str)
     {
-        Image pecabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
-        Image pecapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
-        Image pecaescolhida = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
-        Image rainhabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
-        Image rainhapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
-
-        for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
-        {
-            if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-                return;
-            for(int coluna = 0; coluna < DadosTabuleiro.TAMANHO_TABULEIRO; coluna++)
-            {
-                Rectangle retangulo = new Rectangle(coluna * DadosTabuleiro.TAMANHO, linha * DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO);
-                retangulo.setId(linha + "-" + coluna);
-
-                if (linha % 2 == coluna % 2)
-                    retangulo.setFill(Color.GRAY);
-                else
-                    retangulo.setFill(Color.WHITE);
-                retangulos[linha][coluna] = retangulo;
-
-                Circle peca = new Circle(coluna * DadosTabuleiro.TAMANHO + (DadosTabuleiro.TAMANHO / 2), linha * DadosTabuleiro.TAMANHO + (DadosTabuleiro.TAMANHO / 2), DadosTabuleiro.RADIUS);
-                peca.setId(linha + "-" + coluna);
-                switch (tabuleiro.peçaEm(linha, coluna))
-                {
-                    case Tabuleiro.BRANCA:
-                        peca.setFill(new ImagePattern(pecabranca, 1, 1, 1, 1, true));
-                        pecas[linha][coluna] = peca;
-                        break;
-                    case Tabuleiro.PRETA:
-                        peca.setFill(new ImagePattern(pecapreta, 1, 1, 1, 1, true));
-                        pecas[linha][coluna] = peca;
-                        break;
-                    case Tabuleiro.BRANCA_RAINHA:
-                        peca.setFill(new ImagePattern(rainhabranca, 1, 1, 1, 1, true));
-                        pecas[linha][coluna] = peca;
-                        break;
-                    case Tabuleiro.PRETA_RAINHA:
-                        peca.setFill(new ImagePattern(rainhapreta, 1, 1, 1, 1, true));
-                        pecas[linha][coluna] = peca;
-                        break;
-                    default:
-                        pecas[linha][coluna] = null;
-                        break;
-                }
-            }
-            if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-                return;
-        }
-        if(jogoDecorrer)
-        {
-            for(MovimentoPeça movimentoPeça : movimentoPeças)
-                retangulos[movimentoPeça.deLinha][movimentoPeça.deColuna].setFill(Color.LIGHTSALMON);
-
-            if(linhaSelecionada >= 0)
-            {
-                pecas[linhaSelecionada][colunaSelecionada].setFill(new ImagePattern(pecaescolhida, 1, 1, 1, 1, true));
-                pecas[linhaSelecionada][colunaSelecionada].setStrokeWidth(3);
-            }
-        }
-
-        for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
-            for (int coluna = 0; coluna < DadosTabuleiro.TAMANHO_TABULEIRO; coluna++)
-            {
-                retangulos[linha][coluna].setOnMouseClicked(this);
-                getChildren().add(retangulos[linha][coluna]);
-                if(pecas[linha][coluna] != null)
-                {
-                    pecas[linha][coluna].setOnMouseClicked(this);
-                    getChildren().add(pecas[linha][coluna]);
-                }
-            }
+        mensagem.setText(str);
+        btn_novoJogo.setDisable(false);
+        btn_desistir.setDisable(true);
+        jogoDecorrer = false;
     }
 
-    private void redesenharTabuleiro()
-    {
-        desenhaTabuleiro();
-    }
 
     public void clickQuadrado(int linha, int coluna)
     {
@@ -277,6 +199,87 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
 
 
         redesenharTabuleiro();
+    }
+
+    private void redesenharTabuleiro()
+    {
+        desenhaTabuleiro();
+    }
+
+    private void desenhaTabuleiro()
+    {
+        Image pecabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
+        Image pecapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
+        Image pecaescolhida = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
+        Image rainhabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
+        Image rainhapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
+
+        for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
+        {
+            if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+                return;
+            for(int coluna = 0; coluna < DadosTabuleiro.TAMANHO_TABULEIRO; coluna++)
+            {
+                Rectangle retangulo = new Rectangle(coluna * DadosTabuleiro.TAMANHO, linha * DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO);
+                retangulo.setId(linha + "-" + coluna);
+
+                if (linha % 2 == coluna % 2)
+                    retangulo.setFill(Color.GRAY);
+                else
+                    retangulo.setFill(Color.WHITE);
+                retangulos[linha][coluna] = retangulo;
+
+                Circle peca = new Circle(coluna * DadosTabuleiro.TAMANHO + (DadosTabuleiro.TAMANHO / 2), linha * DadosTabuleiro.TAMANHO + (DadosTabuleiro.TAMANHO / 2), DadosTabuleiro.RADIUS);
+                peca.setId(linha + "-" + coluna);
+                switch (tabuleiro.peçaEm(linha, coluna))
+                {
+                    case Tabuleiro.BRANCA:
+                        peca.setFill(new ImagePattern(pecabranca, 1, 1, 1, 1, true));
+                        pecas[linha][coluna] = peca;
+                        break;
+                    case Tabuleiro.PRETA:
+                        peca.setFill(new ImagePattern(pecapreta, 1, 1, 1, 1, true));
+                        pecas[linha][coluna] = peca;
+                        break;
+                    case Tabuleiro.BRANCA_RAINHA:
+                        peca.setFill(new ImagePattern(rainhabranca, 1, 1, 1, 1, true));
+                        pecas[linha][coluna] = peca;
+                        break;
+                    case Tabuleiro.PRETA_RAINHA:
+                        peca.setFill(new ImagePattern(rainhapreta, 1, 1, 1, 1, true));
+                        pecas[linha][coluna] = peca;
+                        break;
+                    default:
+                        pecas[linha][coluna] = null;
+                        break;
+                }
+            }
+            if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
+                return;
+        }
+        if(jogoDecorrer)
+        {
+            for(MovimentoPeça movimentoPeça : movimentoPeças)
+                retangulos[movimentoPeça.deLinha][movimentoPeça.deColuna].setFill(Color.LIGHTSALMON);
+
+            if(linhaSelecionada >= 0)
+            {
+                pecas[linhaSelecionada][colunaSelecionada].setFill(new ImagePattern(pecaescolhida, 1, 1, 1, 1, true));
+                pecas[linhaSelecionada][colunaSelecionada].setStrokeWidth(3);
+            }
+        }
+
+        for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
+            for (int coluna = 0; coluna < DadosTabuleiro.TAMANHO_TABULEIRO; coluna++)
+            {
+                retangulos[linha][coluna].setOnMouseClicked(this);
+                getChildren().add(retangulos[linha][coluna]);
+                if(pecas[linha][coluna] != null)
+                {
+                    pecas[linha][coluna].setOnMouseClicked(this);
+                    getChildren().add(pecas[linha][coluna]);
+                }
+            }
     }
 
     @Override

@@ -80,9 +80,9 @@ public class Server implements NetworkInterface {
     {
         switch (message) {
             case "CLICK_SQUARE":
-                int row = (int) in.readObject();
-                int col = (int) in.readObject();
-                Platform.runLater(() -> tabuleiro.clickQuadrado(row, col));
+                int linha = (int) in.readObject();
+                int coluna = (int) in.readObject();
+                Platform.runLater(() -> tabuleiro.clickQuadrado(linha, coluna));
                 break;
         }
     }
@@ -99,10 +99,10 @@ public class Server implements NetworkInterface {
     }
 
     @Override
-    public void clickQuadrado(int row, int col) {
-        System.out.println("Linha: " + row + " Coluna: " + col);
+    public void clickQuadrado(int linha, int coluna) {
+        System.out.println("Linha: " + linha + " Coluna: " + coluna);
         enviarData("CLICK_SQUARE");
-        enviarData(row);
-        enviarData(col);
+        enviarData(linha);
+        enviarData(coluna);
     }
 }

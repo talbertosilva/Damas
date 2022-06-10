@@ -56,10 +56,12 @@ public class Interface implements Initializable {
     }
 
     public void criarJogo(MouseEvent mouseEvent) {
-        int porta = 6666;
+        int porta = 6668;
         servidor = new Server(tabuleiro, porta);
+        estadoConexao.setText("Á espera do adversário...");
         new Thread(() -> {
             boolean state = servidor.conectar();
+            System.out.println(state);
             if(state){
                 Platform.runLater(() -> {
                     estadoConexao.setText("Adversário conectado");
@@ -82,8 +84,10 @@ public class Interface implements Initializable {
         rotation = new Rotate(180, 0, 0);
         translation = new Translate(DadosTabuleiro.TAMANHO * -8, DadosTabuleiro.TAMANHO * -8);
 
+        estadoConexao.setText("A conectar...");
         new Thread(() -> {
             boolean state = cliente.conectar();
+            System.out.println(state);
             if(state){
                 Platform.runLater(() -> {
                     estadoConexao.setText("Conectado a " + ip + ":" + porta);
@@ -92,6 +96,8 @@ public class Interface implements Initializable {
                     tabuleiro.comecarNovoJogo();
                     tabuleiro.getTransforms().addAll(rotation, translation);
                 });
+                tabuleiro.setNetworkInterface(this.cliente);
+                cliente.lerData();
             }
         }).start();
     }
