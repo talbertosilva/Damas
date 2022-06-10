@@ -1,8 +1,6 @@
 package com.example.damas;
 
-public class MovimentoPeça
-{
-
+class MovimentoPeça {
     int deLinha, deColuna;
     int paraLinha, paraColuna;
 
@@ -16,7 +14,6 @@ public class MovimentoPeça
 
     boolean comerPeça()
     {
-
         return (deLinha - paraLinha == 2 || deLinha - paraLinha == -2);
     }
 }

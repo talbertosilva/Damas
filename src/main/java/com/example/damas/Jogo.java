@@ -102,8 +102,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
 
     public void clickQuadrado(int linha, int coluna)
     {
-        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-            return;
+        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8) return;
         for(MovimentoPeça movimentoPeça : movimentoPeças)
             if (movimentoPeça.deLinha == linha && movimentoPeça.deColuna == coluna)
             {
@@ -113,23 +112,20 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
                     mensagem.setText("Jogador 1: JOGA!");
                 else
                     mensagem.setText("Jogador 2: JOGA!");
+                redesenharTabuleiro();
                 return;
             }
 
-        if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-            return;
+        if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8) return;
         if (linhaSelecionada < 0)
         {
             mensagem.setText("Carrega na peça que queres mover");
             return;
         }
 
-        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-            return;
+        if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8) return;
         for (MovimentoPeça movimentoPeça : movimentoPeças)
-            if (movimentoPeça.deLinha == linhaSelecionada && movimentoPeça.deColuna == colunaSelecionada
-                    && movimentoPeça.paraLinha == linha && movimentoPeça.paraColuna == coluna)
-            {
+            if (movimentoPeça.deLinha == linhaSelecionada && movimentoPeça.deColuna == colunaSelecionada && movimentoPeça.paraLinha == linha && movimentoPeça.paraColuna == coluna) {
                 realizarMovimento(movimentoPeça);
                 return;
             }
@@ -216,8 +212,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
 
         for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++)
         {
-            if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
-                return;
+            if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8) return;
             for(int coluna = 0; coluna < DadosTabuleiro.TAMANHO_TABULEIRO; coluna++)
             {
                 Rectangle retangulo = new Rectangle(coluna * DadosTabuleiro.TAMANHO, linha * DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO, DadosTabuleiro.TAMANHO);
@@ -257,13 +252,13 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
             if (!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8)
                 return;
         }
-        if(jogoDecorrer)
-        {
-            for(MovimentoPeça movimentoPeça : movimentoPeças)
-                retangulos[movimentoPeça.deLinha][movimentoPeça.deColuna].setFill(Color.LIGHTSALMON);
 
-            if(linhaSelecionada >= 0)
-            {
+        if(jogoDecorrer) {
+            for(MovimentoPeça movimentoPeça : movimentoPeças) {
+                retangulos[movimentoPeça.deLinha][movimentoPeça.deColuna].setFill(Color.LIGHTSALMON);
+            }
+
+            if(linhaSelecionada >= 0) {
                 pecas[linhaSelecionada][colunaSelecionada].setFill(new ImagePattern(pecaescolhida, 1, 1, 1, 1, true));
                 pecas[linhaSelecionada][colunaSelecionada].setStrokeWidth(3);
             }
@@ -294,7 +289,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
                     mensagem.setText("Essa peça não é tua");
                     return;
                 }
-                netInterface.clickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+                netInterface.onClickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
             }
             clickQuadrado(coordinates[0], coordinates[1]);
         } else if (src instanceof Circle) {
@@ -304,7 +299,7 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
                     mensagem.setText("Essa peça não é tua");
                     return;
                 }
-                netInterface.clickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+                netInterface.onClickQuadrado(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
             }
             clickQuadrado(coordinates[0], coordinates[1]);
         }

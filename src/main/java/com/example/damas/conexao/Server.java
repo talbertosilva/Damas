@@ -99,7 +99,7 @@ public class Server implements NetworkInterface {
     }
 
     @Override
-    public void clickQuadrado(int linha, int coluna) {
+    public void onClickQuadrado(int linha, int coluna) {
         System.out.println("Linha: " + linha + " Coluna: " + coluna);
         enviarData("CLICK_SQUARE");
         enviarData(linha);

@@ -59,11 +59,9 @@ public class Tabuleiro
 
     private void moverPeça(int deLinha, int deColuna, int paraLinha, int paraColuna)
     {
-        tabuleiro[deLinha][deColuna] = tabuleiro[paraLinha][paraColuna];
+        tabuleiro[paraLinha][paraColuna] = tabuleiro[deLinha][deColuna];
         tabuleiro[deLinha][deColuna] = VAZIO;
-        if (deLinha - paraLinha == 2 || deLinha - paraLinha == -2)
-        {
-
+        if (deLinha - paraLinha == 2 || deLinha - paraLinha == -2){
             int moverLinha = (deLinha + paraLinha) / 2;
             int moverColuna = (deColuna + paraColuna) / 2;
             tabuleiro[moverLinha][moverColuna] = VAZIO;

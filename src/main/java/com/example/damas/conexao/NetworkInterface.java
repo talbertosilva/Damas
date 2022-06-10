@@ -1,5 +1,5 @@
 package com.example.damas.conexao;
 
 public interface NetworkInterface {
-    void clickQuadrado(int linha, int coluna);
+    void onClickQuadrado(int linha, int coluna);
 }
