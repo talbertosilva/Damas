@@ -202,11 +202,11 @@ public class Jogo extends Group implements EventHandler<MouseEvent>
 
     private void desenhaTabuleiro()
     {
-        Image pecabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
-        Image pecapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
-        Image pecaescolhida = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
-        Image rainhabranca = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
-        Image rainhapreta = new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
+        Image pecabranca = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBranca.png");
+        Image pecapreta = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaBlack.png");
+        Image pecaescolhida = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\PecaEscolhida.png");
+        Image rainhabranca = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBranca.png");
+        Image rainhapreta = new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\RainhaBlack.png");
 
         for (int linha = 0; linha < DadosTabuleiro.TAMANHO_TABULEIRO; linha++) {
             if(!DadosTabuleiro.OPEN && DadosTabuleiro.TAMANHO_TABULEIRO < 8) return;
