@@ -5,11 +5,11 @@ import java.util.Vector;
 public class Tabuleiro
 {
     static final int
-        VAZIO = 0,
-        BRANCA = 1,
-        BRANCA_RAINHA = 2,
-        PRETA = 3,
-        PRETA_RAINHA = 4;
+            VAZIO = 0,
+            BRANCA = 1,
+            BRANCA_RAINHA = 2,
+            PRETA = 3,
+            PRETA_RAINHA = 4;
 
     private int[][] tabuleiro;
 
@@ -67,7 +67,7 @@ public class Tabuleiro
             tabuleiro[moverLinha][moverColuna] = VAZIO;
         }
         if (paraLinha == 0 && tabuleiro[paraLinha][paraColuna] == BRANCA)
-            tabuleiro[paraLinha][paraLinha] = BRANCA_RAINHA;
+            tabuleiro[paraLinha][paraColuna] = BRANCA_RAINHA;
         if (paraLinha == 7 && tabuleiro[paraLinha][paraColuna] == PRETA)
             tabuleiro[paraLinha][paraColuna] = PRETA_RAINHA;
     }

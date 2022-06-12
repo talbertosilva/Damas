@@ -1,6 +1,5 @@
 package com.example.damas.conexao;
 
-import com.example.damas.Interface;
 import com.example.damas.Jogo;
 import javafx.application.Platform;
 
@@ -79,7 +78,13 @@ public class Server implements NetworkInterface {
     private void verificarData(String message) throws IOException, ClassNotFoundException
     {
         switch (message) {
-            case "CLICK_SQUARE":
+            case "NOVO_JOGO":
+                Platform.runLater(() -> tabuleiro.comecarNovoJogo());
+                break;
+            case "DESISTIR":
+                Platform.runLater(() -> tabuleiro.desistirJogo());
+                break;
+            case "CLICAR_QUADRADO":
                 int linha = (int) in.readObject();
                 int coluna = (int) in.readObject();
                 Platform.runLater(() -> tabuleiro.clickQuadrado(linha, coluna));
@@ -99,9 +104,20 @@ public class Server implements NetworkInterface {
     }
 
     @Override
+    public void comecarNovoJogo()
+    {
+        enviarData("NOVO_JOGO");
+    }
+
+    @Override
+    public void desistirJogo()
+    {
+        enviarData("DESISTIR");
+    }
+
+    @Override
     public void onClickQuadrado(int linha, int coluna) {
-        System.out.println("Linha: " + linha + " Coluna: " + coluna);
-        enviarData("CLICK_SQUARE");
+        enviarData("CLICAR_QUADRADO");
         enviarData(linha);
         enviarData(coluna);
     }

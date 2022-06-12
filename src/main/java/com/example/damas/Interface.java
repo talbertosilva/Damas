@@ -26,19 +26,17 @@ public class Interface implements Initializable {
 
     // Layout
     @FXML
-    Text txt_ip, txt_porta;
+    Text txt_ip;
     @FXML
     Label estadoConexao;
     @FXML
-    TextField input_ip, input_porta;
+    TextField input_ip, input_porta, input_portaHost;
     @FXML
-    Button btn_resign, btn_newGame;
+    Button btn_desistir, btn_novoJogo, btn_criarJogo, btn_entrarJogo;
 
     private Server servidor;
     private Client cliente;
-
     private Jogo tabuleiro;
-
     private Rotate rotation;
     private Translate translation;
 
@@ -50,21 +48,27 @@ public class Interface implements Initializable {
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
+        btn_entrarJogo.setDisable(false);
+        btn_criarJogo.setDisable(false);
+        input_portaHost.setDisable(false);
         GridPane grid = ((GridPane) input_ip.getParent().getParent().getParent());
-        grid.add(DadosTabuleiro.OPEN ? tabuleiro = new Jogo(btn_resign, btn_newGame, estadoConexao) : null, 0, 1);
-        txt_porta.setVisible(false);
+        grid.add(DadosTabuleiro.OPEN ? tabuleiro = new Jogo(btn_desistir, btn_novoJogo, estadoConexao) : null, 0, 1);
     }
 
-    public void criarJogo(MouseEvent mouseEvent) {
-        int porta = 6668;
+    public void criarJogo(MouseEvent mouseEvent) throws UnknownHostException {
+        int porta = Integer.parseInt(this.input_portaHost.getText());
+        InetAddress ip = InetAddress.getLocalHost();
+
         servidor = new Server(tabuleiro, porta);
-        estadoConexao.setText("Á espera do adversário...");
+        estadoConexao.setText("A hospedar no ip " + ip.getHostAddress() + " na porta " + porta);
+        btn_criarJogo.setDisable(true);
+        btn_entrarJogo.setDisable(true);
+        input_portaHost.setDisable(true);
         new Thread(() -> {
             boolean state = servidor.conectar();
-            System.out.println(state);
             if(state){
                 Platform.runLater(() -> {
-                    estadoConexao.setText("Adversário conectado");
+                    estadoConexao.setText("AdversÃ¡rio conectado");
                     tabuleiro.setJogoDecorrer(false);
                     tabuleiro.setJogador(1);
                     tabuleiro.comecarNovoJogo();
@@ -85,9 +89,11 @@ public class Interface implements Initializable {
         translation = new Translate(DadosTabuleiro.TAMANHO * -8, DadosTabuleiro.TAMANHO * -8);
 
         estadoConexao.setText("A conectar...");
+        btn_criarJogo.setDisable(true);
+        btn_entrarJogo.setDisable(true);
+        input_portaHost.setDisable(true);
         new Thread(() -> {
             boolean state = cliente.conectar();
-            System.out.println(state);
             if(state){
                 Platform.runLater(() -> {
                     estadoConexao.setText("Conectado a " + ip + ":" + porta);
