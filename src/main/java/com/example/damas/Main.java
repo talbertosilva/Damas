@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.getIcons().add(new Image("C:\\Users\\berna\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\logo.png"));
+        stage.getIcons().add(new Image("C:\\Users\\sorai\\Desktop\\Damas\\src\\main\\java\\com\\example\\damas\\assets\\logo.png"));
         stage.setTitle("Jogo das damas");
         stage.setScene(scene);
         stage.show();

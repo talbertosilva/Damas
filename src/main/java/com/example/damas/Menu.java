@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *<p>Menu - Contém funções de cliques nos diversos botões do menu.</p>
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
 public class Menu {
 
     private Stage stage;
@@ -17,6 +22,7 @@ public class Menu {
 
     public void menuJogar(MouseEvent mouseEvent) throws IOException
     {
+        DadosTabuleiro.OPEN = true;
         Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));
         stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -9,6 +9,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *<p>Regras - Contém a função do botão para voltar ao menu inicial</p>
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
 public class Regras
 {
     private Stage stage;

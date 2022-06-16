@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+/**
+ *<p>Cliente - Criação do cliente</p>
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
 public class Client extends Server {
 
     private String ip;
@@ -15,6 +20,9 @@ public class Client extends Server {
         this.ip = ip;
     }
 
+    /**
+     * O metodo conectar inicializa o socket do cliente e conecta-se a um servidor.
+     */
     @Override
     public boolean conectar(){
         try {

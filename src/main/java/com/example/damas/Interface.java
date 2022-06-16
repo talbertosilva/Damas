@@ -14,13 +14,22 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 import static java.lang.Integer.parseInt;
+
+/**
+ *<p>Interface - Funcionalidades do ecrã de jogo</p>
+ * A classe Interface contém as funcionalidades da tela de interface,
+ * respetivamente a secção de criar um jogo (abrir um socket do servidor),
+ * e a secção de juntar a um jogo (abrir um socket de cliente e fazer a
+ * conexão com um socket de servidor).
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
 
 public class Interface implements Initializable {
 
@@ -40,6 +49,13 @@ public class Interface implements Initializable {
     private Rotate rotation;
     private Translate translation;
 
+    /**
+     * O metodo initialize começa por receber o endereço de ip do jogador
+     * para caso ele queira inicializar um jogo, apenas ter que escolher
+     * uma porta de acesso.
+     * Também é feita a atribuição do tabuleiro à devida posição na
+     * interface gráfica.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -55,20 +71,27 @@ public class Interface implements Initializable {
         grid.add(DadosTabuleiro.OPEN ? tabuleiro = new Jogo(btn_desistir, btn_novoJogo, estadoConexao) : null, 0, 1);
     }
 
+    /**
+     * O metodo criarJogo estabelece a inicialização do socket do
+     * servidor, na qual ficará a aguardar o segundo utilizador se conectar
+     * e posteriormente iniciar o jogo com a devida atribuição do número de jogador.
+     */
     public void criarJogo(MouseEvent mouseEvent) throws UnknownHostException {
         int porta = Integer.parseInt(this.input_portaHost.getText());
         InetAddress ip = InetAddress.getLocalHost();
 
         servidor = new Server(tabuleiro, porta);
         estadoConexao.setText("A hospedar no ip " + ip.getHostAddress() + " na porta " + porta);
+
         btn_criarJogo.setDisable(true);
         btn_entrarJogo.setDisable(true);
         input_portaHost.setDisable(true);
+
         new Thread(() -> {
-            boolean state = servidor.conectar();
-            if(state){
+            boolean ligado = servidor.conectar();
+            if(ligado){
                 Platform.runLater(() -> {
-                    estadoConexao.setText("AdversÃ¡rio conectado");
+                    estadoConexao.setText("Adversario conectado");
                     tabuleiro.setJogoDecorrer(false);
                     tabuleiro.setJogador(1);
                     tabuleiro.comecarNovoJogo();
@@ -79,6 +102,13 @@ public class Interface implements Initializable {
         }).start();
     }
 
+    /**
+     * O metodo entrarJogo estabelece a conexão do socket do cliente ao
+     * socket do servidor. Assim que estiver conectado, é atribuido o
+     * tabuleiro a ambos os jogadores e um dos jogadores é definido
+     * com um tabuleiro invertido, para fazer a lógica das damas
+     * (um jogador de cada lado).
+     */
     public void entrarJogo(MouseEvent mouseEvent) {
         String ip = this.input_ip.getText();
         String porta = this.input_porta.getText();
@@ -93,8 +123,8 @@ public class Interface implements Initializable {
         btn_entrarJogo.setDisable(true);
         input_portaHost.setDisable(true);
         new Thread(() -> {
-            boolean state = cliente.conectar();
-            if(state){
+            boolean ligado = cliente.conectar();
+            if(ligado){
                 Platform.runLater(() -> {
                     estadoConexao.setText("Conectado a " + ip + ":" + porta);
                     tabuleiro.setJogoDecorrer(false);

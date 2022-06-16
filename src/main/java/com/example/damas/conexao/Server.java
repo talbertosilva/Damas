@@ -9,6 +9,12 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ *<p>Server - Criação do servidor</p>
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
+
 public class Server implements NetworkInterface {
 
     private Jogo tabuleiro;
@@ -25,6 +31,10 @@ public class Server implements NetworkInterface {
         this.porta = porta;
     }
 
+    /**
+     * O metodo conectar inicializa o socket do servidor e com o método accept
+     * fica a aguardar uma conexão.
+     */
     public boolean conectar()
     {
         try
@@ -41,6 +51,9 @@ public class Server implements NetworkInterface {
         return false;
     }
 
+    /**
+     * O metodo streams cria os respectivos streams de Input e Output
+     */
     void streams()
     {
         try {
@@ -51,10 +64,15 @@ public class Server implements NetworkInterface {
         }
     }
 
+    /**
+     * O metodo enviarData, é responsável por enviar dados na devida
+     * conexão.
+     */
     private void enviarData(Object message) {
         if (clientSocket != null) {
             try {
                 out.writeObject(message);
+                System.out.println(message);
                 out.flush();
             } catch (IOException e) {
                 cancelarConexao();
@@ -62,6 +80,10 @@ public class Server implements NetworkInterface {
         }
     }
 
+    /**
+     * O metodo lerData, ao contrário da enviarData, é responsável por
+     * receber esses dados e lê-los.
+     */
     public void lerData()
     {
         if (clientSocket != null) {
@@ -75,6 +97,11 @@ public class Server implements NetworkInterface {
         }
     }
 
+    /**
+     * O metodo verificarData, recebe uma String com a devida ação e caso
+     * a ação seja CLICAR_QUADRADO, é verificado apenas duas variáveis, que
+     * acabam por ser a posição onde o jogador clicou.
+     */
     private void verificarData(String message) throws IOException, ClassNotFoundException
     {
         switch (message) {
@@ -92,12 +119,14 @@ public class Server implements NetworkInterface {
         }
     }
 
+    /**
+     * O metodo cancelarConexão, encerra os sockets do servidor e do cliente.
+     */
     public void cancelarConexao()
     {
         try {
             serverSocket.close();
             clientSocket.close();
-            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

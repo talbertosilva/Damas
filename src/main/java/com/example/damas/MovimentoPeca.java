@@ -1,10 +1,15 @@
 package com.example.damas;
 
-class MovimentoPeça {
+/**
+ *<p>Movimento Peça - Contém os valores de qualquer movimento no jogo (de onde para onde)</p>
+ *
+ * @author Tiago Silva, Bernardo Azevedo, Gaspar Espinheira
+ */
+class MovimentoPeca {
     int deLinha, deColuna;
     int paraLinha, paraColuna;
 
-    MovimentoPeça(int l1, int c1, int l2, int c2)
+    MovimentoPeca(int l1, int c1, int l2, int c2)
     {
         deLinha = l1;
         deColuna = c1;
